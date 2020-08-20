@@ -40,7 +40,7 @@ turn = Turn.new(player1, player2)
 
 if answer == 'GO'
   count = 0
-  while count <= 1_000_000
+  while count <= 1_000_000 || player1.has_lost? == true || player2.has_lost? == false
     count += 1
     turn.type
     turn.winner?
@@ -54,9 +54,14 @@ if answer == 'GO'
     elsif turn.type == :mutally_assured_destruction
       puts "*mutually assured destruction* 6 cards removed from play"
     end
+    if player1.has_lost? == true || player2.has_lost? == true
+      if player1.has_lost? === false
+        "*~*~*~* #{player1} has won the game! *~*~*~*"
+      else
+        "*~*~*~* #{player2} has won the game! *~*~*~*"
+      end
+    end
   end
-  game.take_a_turn
-  game.end_game
 else
   return "Goodbye!"
 end
