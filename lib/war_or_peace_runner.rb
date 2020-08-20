@@ -49,7 +49,6 @@ if answer == 'GO'
     if turn.type == :basic
       puts "Turn #{count}: #{turn.winner} won #{turn.pile_cards.length} cards"
     elsif turn.type == :war
-      binding.pry
       puts "WAR - #{turn.winner} won #{turn.pile_cards.length}"
     elsif turn.type == :mutally_assured_destruction
       puts "*mutually assured destruction* 6 cards removed from play"
