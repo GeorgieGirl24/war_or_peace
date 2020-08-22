@@ -1,3 +1,4 @@
+require 'pry'
 class Turn
   attr_accessor :player1, :player2, :spoils_of_war, :winner
   def initialize(player1, player2)
@@ -8,11 +9,15 @@ class Turn
   end
 
   def type
-    if (@player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0)) && (@player1.deck.rank_of_card_at(2) == @player2.deck.rank_of_card_at(2))
-      return :mutally_assured_destruction
+    if (@player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0)) &&
+      (@player1.deck.rank_of_card_at(2) == @player2.deck.rank_of_card_at(2))
+      :mutally_assured_destruction
+
     elsif @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0)
       :war
-    elsif @player1.deck.rank_of_card_at(0) != @player2.deck.rank_of_card_at(0)
+    elsif @player1.deck.cards.length < 3 || @player2.deck.cards.length < 3
+      :loss
+    else
       :basic
     end
   end
@@ -45,19 +50,21 @@ class Turn
       3.times do
         @spoils_of_war << @player1.deck.remove_card
         @spoils_of_war << @player2.deck.remove_card
+
       end
     elsif type == :basic
       @spoils_of_war << @player1.deck.remove_card
       @spoils_of_war << @player2.deck.remove_card
     end
+
   end
 
   def award_spoils(winner)
     if @spoils_of_war.length != 0
-      (winner.deck.cards << @spoils_of_war).flatten
-      @spoils_of_war.clear
-    else
-      @spoils_of_war.clear
+      @spoils_of_war.each do |card|
+        winner.deck.add_card(card)
+      end
+      amount_of_spoils = @spoils_of_war.length
     end
   end
 end
