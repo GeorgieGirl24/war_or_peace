@@ -9,11 +9,12 @@ class CardGenerator
     @playing_cards = []
   end
 
-  def create_cards
+  def cards
     @card_file.each do |line|
       a_card = line.chop.split(', ')
       make_a_card = Card.new(a_card[1], a_card[0], a_card[2])
       @playing_cards << make_a_card
     end
+    @playing_cards
   end
 end
