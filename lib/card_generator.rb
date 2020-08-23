@@ -14,6 +14,5 @@ class CardGenerator
       make_a_card = Card.new(a_card[1], a_card[0], a_card[2])
       @playing_cards << make_a_card
     end
-    # require 'pry';binding.pry
   end
 end
