@@ -4,39 +4,23 @@ require './lib/player'
 require './lib/turn'
 require './lib/game'
 
-puts "Welcome to War! (or Peace)This game will be played with 52 cards."
-puts "The players today are Megan and Aurora.\nType 'GO' to start the game!"
+
+puts "Welcome to War! (or Peace)\nThis game will be played with 52 cards."
+puts "We need two players to play this game."
+puts "Who is going to play this game?"
+puts "Please enter a name: "
+name1 = gets.chomp.to_s.capitalize
+puts "We need another player to play this fun game."
+puts "Please enter another name now: "
+name2 = gets.chomp.to_s.capitalize
+puts "The players today are #{name1} and #{name2}.\nType 'GO' to start the game!"
 puts "-" * 60
 answer = gets.chomp.to_s.upcase
 
-full_deck = []
-hand1 = []
-hand2 = []
-
-SUIT =  [:heart, :diamond, :club, :spade]
-RANK =  ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
-VALUE = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-
-SUIT.each do |suit|
-  for number in 0..12
-    a_card = Card.new(suit, VALUE[number], RANK[number])
-    full_deck << a_card
-  end
-end
-
-full_deck.shuffle!(random: Random.new(1))
-hand1 = full_deck.shift(26)
-hand1 = full_deck.shift(26)
-deck1 = Deck.new(hand1)
-deck2 = Deck.new(hand2)
-
-player1 =  Player.new('Megan', deck1)
-player2 =  Player.new('Aurora', deck2)
-
 if answer == 'GO'
-  game = Game.new(player1, player2)
+  game = Game.new(name1, name2)
+  game.deal
   game.start
-  game.end
 else
   puts "Goodbye!"
 end
