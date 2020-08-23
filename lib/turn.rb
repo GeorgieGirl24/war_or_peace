@@ -1,4 +1,3 @@
-require 'pry'
 class Turn
   attr_accessor :player1, :player2, :spoils_of_war, :winner, :type, :total_cards_won
   def initialize(player1, player2)
