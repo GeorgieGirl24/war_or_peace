@@ -9,11 +9,8 @@ class Deck
   end
 
   def high_ranking_cards
-    high_cards = []
     @cards.select do |card|
-      if card.rank >= 11
-        high_cards << card
-      end
+      card.rank >= 11
     end
   end
 
